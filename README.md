@@ -21,7 +21,7 @@ Then simply follow the README.txt contained within.
 
 # Advanced usage
 
-Windows users needs to install (drivers)[https://github.com/fpv-wtf/driver-installer] first.
+Windows users needs to install [drivers](https://github.com/fpv-wtf/driver-installer) first.
 
 To boot your device for fastboot flashing launch the butter binary and power on your device.
 
