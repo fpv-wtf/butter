@@ -19,6 +19,37 @@ For end users the recommend method is to download premade flashing packages avai
 
 Then simply follow the README.txt contained within.
 
+## Troubleshooting
+
+### Unable to connect to DJI Recovery device
+
+If flashing your device with butter never gets past "[ ] Waiting for DJI Recovery device to enumerate.." here's what you can do:
+- Make sure you've installed the proper drivers using driver_installer.exe
+- Try another USB cable
+- Try another USB port (2.0 if you have one) 
+- Try restarting your PC
+- Try another PC
+
+Usually some combination of cables and USB ports will work. If not, find a friend with a PC willing to help out. Raspberry PIs are also known to work. 
+
+### Firmware version not changed after flashing
+
+Flashing with butter completes sucsesfully (you see individual partitions such as system, system2, vendor, vendor_2 being flashed with the script) but Assistant still shows me the old version number.
+
+This is normal, the FW version is stored separately in the data partition in flash and doesn't get wiped during a downgrade. Just proceed to rooting.
+
+### Loss of O3 mode after re-installing wtfos
+
+If O3 AU mode dissapears from the menus after upgrading to V01.04.0000 and re-installing wtfos, then please run the following in the CLI and then let the configurator do it's thing:
+```
+unrd slot_1.status_successful 0
+unrd slot_1.status_active 0
+unrd slot_2.status_active 1
+reboot
+```
+
+Alternatively, if that doesn't work for some reason, please use this butter package to flash V01.04.0000 on your goggles and then re-install wtfos: https://mega.nz/file/I3JgwA6J#h8Z-R2b2tn5iBFz4xhHqAu3Qr5YafIPT7KereEYnmdM
+
 ## Advanced usage
 
 Windows users need to install [drivers](https://github.com/fpv-wtf/driver-installer) first.
