@@ -11,11 +11,15 @@ This program will enable fastboot on DJI Air Unit (Lite), DJI FPV Goggles V1 and
 Sorry OS X users, you will need to find a friend with a supported PC. If someone has any ideas on how to make the recovery USB device that shows up for 5 seconds during DJI device power up successfully enumerate on OS X in libusb (or at all) we're all ears.
 
 ## Usage
-For end users the recommend method is to download premade flashing packages available at:
+For end users looking to recover/root the recommend method is to download premade flashing packages available at:
 - [Air Unit - V01.00.0608](https://mega.nz/file/4ygSlZLZ#ZJ7aEwO0s-1ucK1QJTDf1gzA6ZXRncBP_8IH0U_5iQQ)
 - [Air Unit Lite / Caddx Vista / Runcam Link - V01.00.0608](https://mega.nz/file/4yoAnDKZ#WB4n3KlsB69nIAt1p2gIdqZEsnNf_u1UgO0xPG9Oqx4)
 - [FPV Goggles V1 - V01.00.0608](https://mega.nz/file/YnI0TJYB#FVGdEwXERCzGnJCWPdDLZg2U2VWGJUZWo52WYCHyQkM)
 - [FPV Goggles V2 - V01.00.0606](https://mega.nz/file/Uz4V1L4Q#XQAXasHy95XYuhj1Mc4yac5Gg-uX2kmrmay_yr92_iI)
+
+A few additional V2 Goggles packages are available for particular use cases:
+- [V01.02.0001](https://mega.nz/file/MrYhCRrb#hWEmJdTQir8e4-xccAJ9uqx5_zXOSvUH11mlhKcj7QA)
+- [V01.04.0000](https://mega.nz/file/I3JgwA6J#h8Z-R2b2tn5iBFz4xhHqAu3Qr5YafIPT7KereEYnmdM)
 
 Then simply follow the README.txt contained within.
 
