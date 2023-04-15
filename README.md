@@ -14,6 +14,7 @@ Sorry OS X users, you will need to find a friend with a supported PC. If someone
 For end users looking to recover/root the recommend method is to download premade flashing packages available at:
 - [Air Unit - V01.00.0608](https://mega.nz/file/4ygSlZLZ#ZJ7aEwO0s-1ucK1QJTDf1gzA6ZXRncBP_8IH0U_5iQQ)
 - [Air Unit Lite / Caddx Vista / Runcam Link - V01.00.0608](https://mega.nz/file/4yoAnDKZ#WB4n3KlsB69nIAt1p2gIdqZEsnNf_u1UgO0xPG9Oqx4)
+- [Air Unit Lite / Caddx Vista - V01.00.0606](https://mega.nz/file/dioAEKYJ#d2i9YlhEUvSc7piR_TrwBkrSi1Wnjdc_RFzXIIT-kFE)
 - [FPV Goggles V1 - V01.00.0608](https://mega.nz/file/YnI0TJYB#FVGdEwXERCzGnJCWPdDLZg2U2VWGJUZWo52WYCHyQkM)
 - [FPV Goggles V2 - V01.00.0606](https://mega.nz/file/Uz4V1L4Q#XQAXasHy95XYuhj1Mc4yac5Gg-uX2kmrmay_yr92_iI)
 
