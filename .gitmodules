@@ -1,0 +1,6 @@
+[submodule "packager/deps/sdat2img"]
+	path = packager/deps/sdat2img
+	url = https://github.com/xpirt/sdat2img.git
+[submodule "packager/deps/dji-firmware-tools"]
+	path = packager/deps/dji-firmware-tools
+	url = https://github.com/o-gs/dji-firmware-tools.git

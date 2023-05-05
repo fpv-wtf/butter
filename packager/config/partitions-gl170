@@ -1,0 +1,12 @@
+bootloader bootarea.img
+bootloader2 bootarea.img
+cp cp.img
+cp_2 cp.img
+normal normal.img
+normal_2 normal.img
+system system.img
+system_2 system.img
+vendor vendor.img
+vendor_2 vendor.img
+env env.img
+upgrade upgrade.img
