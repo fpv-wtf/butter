@@ -11,18 +11,31 @@ This program will enable fastboot on DJI Air Unit (Lite), DJI FPV Goggles V1 and
 Sorry OS X users, you will need to find a friend with a supported PC. If someone has any ideas on how to make the recovery USB device that shows up for 5 seconds during DJI device power up successfully enumerate on OS X in libusb (or at all) we're all ears.
 
 ## Usage
-For end users looking to recover/root the recommend method is to download premade flashing packages available at:
-- [Air Unit - V01.00.0608](https://mega.nz/file/4ygSlZLZ#ZJ7aEwO0s-1ucK1QJTDf1gzA6ZXRncBP_8IH0U_5iQQ)
-- [Air Unit Lite / Caddx Vista / Runcam Link - V01.00.0608](https://mega.nz/file/4yoAnDKZ#WB4n3KlsB69nIAt1p2gIdqZEsnNf_u1UgO0xPG9Oqx4)
-- [Air Unit Lite / Caddx Vista - V01.00.0606](https://mega.nz/file/dioAEKYJ#d2i9YlhEUvSc7piR_TrwBkrSi1Wnjdc_RFzXIIT-kFE)
-- [FPV Goggles V1 - V01.00.0608](https://mega.nz/file/YnI0TJYB#FVGdEwXERCzGnJCWPdDLZg2U2VWGJUZWo52WYCHyQkM)
-- [FPV Goggles V2 - V01.00.0606](https://mega.nz/file/Uz4V1L4Q#XQAXasHy95XYuhj1Mc4yac5Gg-uX2kmrmay_yr92_iI)
+**For first time V2 Goggles** users on Windows it's reccomended to use the following superpack:
+- [01.07.0000 superpack](https://bin.fpv.tools/butter/packages/gl170_01.07.0000_superpack.zip)
 
-A few additional V2 Goggles packages are available for particular use cases:
-- [V01.02.0001](https://mega.nz/file/MrYhCRrb#hWEmJdTQir8e4-xccAJ9uqx5_zXOSvUH11mlhKcj7QA)
-- [V01.04.0000](https://mega.nz/file/I3JgwA6J#h8Z-R2b2tn5iBFz4xhHqAu3Qr5YafIPT7KereEYnmdM)
+This will downgrade your goggles to a rootable version, root them using margerine and finally upgrade them to the latest included firmware version for compatability with the DJI FPV, Avata and O3 Air Unit. If you only fly Air Units or Vistas and don't care about latest compatability you may also use the V01.00.0606 package below to downgrade and then continue rooting and installing wtfos at https://fpv.wtf/.
 
-Then simply follow the README.txt contained within.
+Follow the included README.txt
+
+**For all other purposes**, please find the appropriate package below and follow the included README.txt:
+- **Goggles V1**
+  - [01.00.0608](https://bin.fpv.tools/butter/packages/gl150_01.00.0608_recovery.zip)
+  - [01.00.0606](https://bin.fpv.tools/butter/packages/gl150_01.00.0606_recovery.zip)
+- **Goggles V2**
+  - [01.07.0000](https://bin.fpv.tools/butter/packages/gl170_01.07.0000_recovery.zip)
+  - [01.00.0606](https://bin.fpv.tools/butter/packages/gp150_01.00.0606_recovery.zip)
+- Air Unit Lite (**Caddx Vista / Runcam Wasp**) for Goggles V1/V2
+  - [01.00.0608](https://bin.fpv.tools/butter/packages/lt150_01.00.0608_recovery.zip)
+- Air Unit Lite (**Caddx Vista**) for Goggles V1/V2
+  - [01.00.0606](https://bin.fpv.tools/butter/packages/lt150_01.00.0606_recovery.zip)
+- Air Unit Lite (**Caddx Vista / Runcam Wasp**) for Goggles 2/Integra
+  - [01.01.0000](https://bin.fpv.tools/butter/packages/lt150_01.01.0000_recovery.zip)
+- **Air Unit** for Goggles V1/V2
+  - [01.00.0608](https://bin.fpv.tools/butter/packages/wm150_01.00.0608_recovery.zip)
+  - [01.00.0606](https://bin.fpv.tools/butter/packages/wm150_01.00.0606_recovery.zip)
+- **Air Unit** for Goggles 2/Integra
+  - [01.01.0000](https://bin.fpv.tools/butter/packages/wm150_01.01.0000_recovery.zip)
 
 ## Troubleshooting
 
@@ -41,19 +54,7 @@ Usually some combination of cables and USB ports will work. If not, find a frien
 
 Flashing with butter completes sucsesfully (you see individual partitions such as system, system2, vendor, vendor_2 being flashed with the script) but Assistant still shows me the old version number.
 
-This is normal, the FW version is stored separately in the data partition in flash and doesn't get wiped during a downgrade. Just proceed to rooting.
-
-### Loss of O3 mode after re-installing wtfos
-
-If O3 AU mode dissapears from the menus after upgrading to V01.04.0000 and re-installing wtfos, then please run the following in the CLI and then let the configurator do it's thing:
-```
-unrd slot_1.status_successful 0
-unrd slot_1.status_active 0
-unrd slot_2.status_active 1
-reboot
-```
-
-Alternatively, if that doesn't work for some reason, please use this butter package to flash V01.04.0000 on your goggles and then re-install wtfos: https://mega.nz/file/I3JgwA6J#h8Z-R2b2tn5iBFz4xhHqAu3Qr5YafIPT7KereEYnmdM
+This is normal, the FW version is stored separately in the data partition in flash and doesn't always get wiped during a restore. Just proceed to rooting.
 
 ## Advanced usage
 
@@ -73,6 +74,28 @@ Where device is one of:
 If no argument is supplied you can select the device interactively.
 
 Then use `fastboot` to flash your devices partitions. Note that you will need raw partition images. Methods for using DDD firmware archives will be released at a later date. See [Usage](#Usage) for pre-converted archives.
+
+## Generating new packages
+
+### Without Docker
+
+Clone this repository and put your firmware .bin files obtained from [DDD](https://www.dankdronedownloader.com/DDD2/app/) into `packager/firmwares/`
+
+Then run:
+```
+cd packager
+make
+```
+You should find the output packages in `packager/packages/`
+
+### Building many packages at once
+Firmwares can be extracted in parralel, but note the separate invocation for the packages target. The Makefile has some issues.
+```
+cd packager
+make -j32 firmwares
+make packages
+```
+
 
 ## Todo
 - Add support for DDD tar archives
