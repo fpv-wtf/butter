@@ -96,11 +96,11 @@ Then, given
 
 on Linux we need to run:
 ```
-docker run -v "$(pwd)"/firmwares:/app/firmwares -v "$(pwd)"/pacakges:/app/packages butter-packager
+docker run -v "$(pwd)"/firmwares:/app/firmwares -v "$(pwd)"/packages:/app/packages butter-packager
 ```
 on Windows with Powershell we need to run:
 ```
-docker run -v ${PWD}\firmwares:/app/firmwares -v ${PWD}\pacakges:/app/packages butter-packager
+docker run -v ${PWD}\firmwares:/app/firmwares -v ${PWD}\packages:/app/packages butter-packager
 ```
 
 Note that `./` becomes `"$(pwd)"` on Linux or `${PWD}` in PowerShell on Windows because docker needs non-relative paths for mounts.
