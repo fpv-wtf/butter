@@ -130,13 +130,32 @@ tlfiles.forEach(file => {
 
 if(device == "gp150" || device == "gl170") {
     exec(`set -e
-    sudo umount mount || true
+    sudo rm -rf mount
+    mkdir -p mount
+    rm -rf upgrade_raw.img
+    
+    mkdir -p mount/part_a
+    mkdir -p mount/part_b
+    mkdir -p mount/debugimgs
+    ln -s /blackbox/upgrade/part_a  mount/backup
+    ln -s /blackbox/upgrade/part_b  mount/signimgs
+    cp ${sigcfg} mount/part_a/
+    cp ${sigcfg} mount/part_b/
+    mke2fs -d mount/ -b 4096 -T ext4 upgrade_raw.img 128000
+    tune2fs -c0 -i0 -O ^metadata_csum upgrade_raw.img
+    #cp upgrade_raw.img upgrade.img
+    img2simg upgrade_raw.img upgrade.img
+    rm upgrade_raw.img`)
+}
+
+/*
+  sudo umount mount/ || true
     sudo rm -rf mount
     mkdir -p mount
     rm -rf upgrade_raw.img
     truncate -s 524288000 upgrade_raw.img
-    mkfs.ext4 upgrade_raw.img
- 
+    mke2fs -b 4096 -T ext4 upgrade_raw.img
+    tune2fs -c0 -i0 -O ^metadata_csum upgrade_raw.img
     sudo mount upgrade_raw.img mount/
     sudo mkdir -p mount/part_a
     sudo mkdir -p mount/part_b
@@ -146,9 +165,10 @@ if(device == "gp150" || device == "gl170") {
     sudo cp ${sigcfg} mount/part_a/
     sudo cp ${sigcfg} mount/part_b/
     sudo umount mount/
+    #cp upgrade_raw.img upgrade.img
     img2simg upgrade_raw.img upgrade.img
-    rm upgrade_raw.img`)
-}
+    #rm upgrade_raw.img
+*/
 
 const cleanup = fs.readdirSync(process.cwd()).filter(file => !file.endsWith(".img"))
 

@@ -77,9 +77,37 @@ Then use `fastboot` to flash your devices partitions. Note that you will need ra
 
 ## Generating new packages
 
+### With Docker
+
+For most users, it's reccomended to run the packager via [docker](https://www.docker.com/products/docker-desktop/).
+
+First, we need to build the docker image:
+
+```
+git clone --recurse-submodules https://github.com/fpv-wtf/butter.git
+cd butter
+cd packager
+docker build -t butter-packager . 
+```
+Then, given 
+
+- firmware .bin files obtained from [DDD](https://www.dankdronedownloader.com/DDD2/app/) in the folder `./firmwares`
+- an empty output folder for packages at `./packages`
+
+on Linux we need to run:
+```
+docker run -v "$(pwd)"/firmwares:/app/firmwares -v "$(pwd)"/pacakges:/app/packages butter-packager
+```
+on Windows with Powershell we need to run:
+```
+docker run -v ${PWD}\firmwares:/app/firmwares -v ${PWD}\pacakges:/app/packages butter-packager
+```
+
+Note that `./` becomes `"$(pwd)"` on Linux or `${PWD}` in PowerShell on Windows because docker needs non-relative paths for mounts.
+
 ### Without Docker
 
-Clone this repository and put your firmware .bin files obtained from [DDD](https://www.dankdronedownloader.com/DDD2/app/) into `packager/firmwares/`
+Clone this repository and put your firmware .bin files obtained from [DDD](https://www.dankdronedownloader.com/DDD2/app/) into `packager/firmwares/`. You'll have to figure out any dependency issues as they come up, or see the included Dockerfile for reference.
 
 Then run:
 ```
@@ -94,8 +122,8 @@ Firmwares can be extracted in parralel, but note the separate invocation for the
 cd packager
 make -j32 firmwares
 make packages
+make superpack
 ```
-
 
 ## Todo
 - Add support for DDD tar archives

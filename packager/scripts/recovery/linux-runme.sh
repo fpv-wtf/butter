@@ -22,11 +22,12 @@ case $ARCH in
     ;;
 esac
 
-if ! command -v fastboot &> /dev/null
-then
-    echo "Error: fastboot not found. please install it eg. via 'sudo apt install fastboot'."
-    exit
-fi
+#this is bugged on some raspis
+#if ! command -v fastboot &> /dev/null
+#then
+#    echo "Error: fastboot not found. please install it eg. via 'sudo apt install fastboot'."
+#    exit
+#fi
 
 bin/butter-${BIN} ${DEVICE}
 

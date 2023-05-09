@@ -22,7 +22,7 @@ if "%ERRORLEVEL%"=="0" (
 )
 
 pause
-echo Please connect your goggles (powered off) via USB.
+echo Please connect your powered off(!) goggles via USB.
 pause
 echo Please power on your goggles now.
 

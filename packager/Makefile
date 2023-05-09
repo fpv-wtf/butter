@@ -1,4 +1,4 @@
-.PHONY: firmwares packages superpack htdocs upload mdlink clean
+.PHONY: firmwares packages superpack htdocs upload mdlink clean clean-htdocs clean-tmp clean-packages deps/butter
 
 GL170_ROOTABLE=01.00.0606
 GL170_LATEST=$(shell cat config/latest-gl170)
@@ -9,6 +9,9 @@ SUPERPACK_ZIP=../../htdocs/packages/gl170_$(GL170_LATEST)_superpack.zip
 
 bins := $(wildcard firmwares/*.bin)
 fwtargets := $(patsubst firmwares/%.bin,packages/%_recovery,$(bins))
+
+fwpackages:= $(wildcard packages/*_recovery packages/*_superpack)
+fwzips:= $(patsubst packages/%,htdocs/packages/%.zip,$(fwpackages))
 
 all: firmwares packages
 
@@ -36,7 +39,7 @@ packages/%_recovery: firmwares/%.bin deps/sdat2img/sdat2img.py
 firmwares: $(fwtargets)
 
 .ONESHELL:
-packages: deps/margerine.exe deps/driver_installer.exe
+packages: deps/margerine.exe deps/driver_installer.exe deps/butter
 	for name in packages/*_recovery; do
 		mkdir -p $${name}/firmware 
 		if ls $${name}/*.img 1> /dev/null 2>&1; then
@@ -50,7 +53,7 @@ packages: deps/margerine.exe deps/driver_installer.exe
 			cp config/env-$${device} $${name}/firmware/env.img 
 		fi
 		mkdir -p $${name}/bin
-		cp ../bin/butter-* $${name}/bin/ 
+		cp deps/butter-* $${name}/bin/ 
 		cp deps/driver_installer.exe $${name}/ 
 		cp scripts/recovery/* $${name}/
 		cp deps/platform-tools/fastboot* $${name}/bin/ 
@@ -63,7 +66,16 @@ deps/driver_installer.exe:
 deps/margerine.exe:
 	wget -O deps/margerine.exe https://github.com/fpv-wtf/margerine/releases/latest/download/margerine.exe
 
-superpack: deps/margerine.exe deps/driver_installer.exe
+deps/butter: deps/butter-x86_64-w64-mingw32.exe deps/butter-x86_64-linux-gnu deps/butter-arm-linux-gnueabihf deps/butter-aarch64-linux-gnu
+
+.PHONY:
+latest/download/butter-%:
+	echo 
+
+deps/butter-%:latest/download/butter-%
+	wget -O $@ https://github.com/fpv-wtf/butter/releases/$<
+
+superpack: deps/margerine.exe deps/driver_installer.exe deps/butter
 	rm -rf $(SUPERPACK_PATH)
 	mkdir $(SUPERPACK_PATH)
 	cp -r packages/gp150_$(GL170_ROOTABLE)_recovery/firmware $(SUPERPACK_PATH)/$(GL170_ROOTABLE)
@@ -73,24 +85,16 @@ superpack: deps/margerine.exe deps/driver_installer.exe
 	mkdir $(SUPERPACK_PATH)/bin
 	cp deps/driver_installer.exe $(SUPERPACK_PATH)
 	cp scripts/superpack/* $(SUPERPACK_PATH)/
-	cp deps/margerine.exe deps/platform-tools/fastboot* deps/platform-tools/AdbWin* ../bin/butter-x86_64-w64-mingw32.exe $(SUPERPACK_PATH)/bin
+	cp deps/margerine.exe deps/platform-tools/fastboot* deps/platform-tools/AdbWin* deps/butter-x86_64-w64-mingw32.exe $(SUPERPACK_PATH)/bin
 	mkdir $(SUPERPACK_PATH)/data
 	cp config/latest-gl170 $(SUPERPACK_PATH)/data/latest
 
-.ONESHELL:
-htdocs: 
-	rm -rf htdocs
-	mkdir -p htdocs/packages
-	for name in packages/*; do
-		if [ -d "$${name}" ] 
-		then
-			cd $${name}/ 
-			zip -9 -r ../../htdocs/packages/$(shell basename "$$PWD").zip ./*
-			cd ../../
-		fi
-	done
-	node genindex.js json > htdocs/packages.json
+htdocs/packages/%.zip:packages/%
+	mkdir -p htdocs/packages/
+	cd $< && zip -9 -r ../../$@ ./*
 
+htdocs: $(fwzips)
+	node genindex.js json > htdocs/packages.json
 
 upload: htdocs
 	aws s3 sync --delete ./htdocs s3://bin.fpv.tools/butter/ --acl public-read
@@ -98,7 +102,16 @@ upload: htdocs
 mdlinks: 
 	node genindex.js md 
 
-clean: 
-	rm -rf packages/*
+clean: clean-packages clean-htdocs clean-tmp clean-deps
+
+clean-htdocs:
 	rm -rf htdocs/*
-	rm -rf tmp/
+clean-packages:
+	rm -rf packages/*
+clean-tmp:
+	rm -rf tmp/*
+
+clean-deps:
+	rm -rf deps/margerine.exe
+	rm -rf deps/butter*
+	rm -rf deps/driver_installer.exe

@@ -21,6 +21,19 @@ In order to recover/downgrade your device:
 * Power on your device
 * Wait for flashing to finish
 
+Please note that butter may not update the firmware version displayed in your Goggles and DJI Assistant for some devices. This is normal and flashing worked, keep calm and carry on.
+
+Troubleshooting:
+
+If running the package never gets past "[ ] Waiting for DJI Recovery device to enumerate.." here's what you can do:
+* Make sure you've installed the proper drivers using driver_installer.exe
+* Try another USB cable
+* Try another USB port (2.0 if you have one) 
+* Try restarting your PC
+* Try another PC
+
+Usually some combination of cables and USB ports will work. If not, find a friend with a PC willing to help out.
+
 If you run into trouble join our Discord at: https://discord.com/invite/3rpnBBJKtU
 
 glhf

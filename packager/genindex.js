@@ -62,8 +62,10 @@ else if(process.argv[2] == "md") {
         console.log("**For first time V2 Goggles** users on Windows it's reccomended to use the following superpack:")
         console.log("- ["+package.version+" superpack]("+package.url+")")
         console.log("")
-        console.log("This will downgrade your goggles to a rootable version, root them using margerine and finally upgrade them to the latest included firmware version.")
-        console.log("Follow the included README.txt")
+        console.log("This will downgrade your goggles to a rootable version, root them using margerine and finally upgrade them to the latest included firmware version for compatability with the DJI FPV, Avata and O3 Air Unit.")
+        console.log("If you only fly Air Units or Vistas and don't care about latest compatability you may also use the V01.00.0606 package below to downgrade and then continue rooting and installing wtfos at https://fpv.wtf/.")
+        console.log("")
+        console.log("Make sure to follow the included README.txt")
         console.log("")
     }
 

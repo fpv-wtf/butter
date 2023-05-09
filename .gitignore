@@ -2,3 +2,6 @@ packager/firmwares
 packager/packages
 packager/htdocs
 packager/tmp
+packager/deps/butter-*
+packager/deps/margerine.exe
+packager/deps/driver_installer.exe
