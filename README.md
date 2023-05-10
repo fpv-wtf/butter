@@ -14,7 +14,8 @@ Sorry OS X users, you will need to find a friend with a supported PC. If someone
 **For first time V2 Goggles** users on Windows it's reccomended to use the following superpack:
 - [01.07.0000 superpack](https://bin.fpv.tools/butter/packages/gl170_01.07.0000_superpack.zip)
 
-This will downgrade your goggles to a rootable version, root them using margerine and finally upgrade them to the latest included firmware version for compatability with the DJI FPV, Avata and O3 Air Unit. If you only fly Air Units or Vistas and don't care about latest compatability you may also use the V01.00.0606 package below to downgrade and then continue rooting and installing wtfos at https://fpv.wtf/.
+This will downgrade your goggles to a rootable version, root them using margerine and finally upgrade them to the latest included firmware version for compatability with the DJI FPV, Avata and O3 Air Unit. 
+If you only fly Air Units or Vistas and don't care about latest compatability you may also use the V01.00.0606 package below to downgrade and then continue rooting and installing wtfos at https://fpv.wtf/.
 
 Follow the included README.txt
 
@@ -81,26 +82,18 @@ Then use `fastboot` to flash your devices partitions. Note that you will need ra
 
 For most users, it's reccomended to run the packager via [docker](https://www.docker.com/products/docker-desktop/).
 
-First, we need to build the docker image:
-
-```
-git clone --recurse-submodules https://github.com/fpv-wtf/butter.git
-cd butter
-cd packager
-docker build -t butter-packager . 
-```
-Then, given 
+Given:
 
 - firmware .bin files obtained from [DDD](https://www.dankdronedownloader.com/DDD2/app/) in the folder `./firmwares`
 - an empty output folder for packages at `./packages`
 
 on Linux we need to run:
 ```
-docker run -v "$(pwd)"/firmwares:/app/firmwares -v "$(pwd)"/packages:/app/packages butter-packager
+docker run -v "$(pwd)"/firmwares:/app/firmwares -v "$(pwd)"/packages:/app/packages fpvwtf/butter-packager
 ```
 on Windows with Powershell we need to run:
 ```
-docker run -v ${PWD}\firmwares:/app/firmwares -v ${PWD}\packages:/app/packages butter-packager
+docker run -v ${PWD}\firmwares:/app/firmwares -v ${PWD}\packages:/app/packages fpvwtf/butter-packager
 ```
 
 Note that `./` becomes `"$(pwd)"` on Linux or `${PWD}` in PowerShell on Windows because docker needs non-relative paths for mounts.
