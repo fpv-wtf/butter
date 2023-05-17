@@ -59,7 +59,7 @@ This is normal, the FW version is stored separately in the data partition in fla
 
 ## Advanced usage
 
-Windows users need to install [drivers](https://github.com/fpv-wtf/driver-installer) first.
+Windows users need to install [drivers](https://github.com/fpv-wtf/driver-installer/releases) first.
 
 To boot your device for fastboot flashing launch the butter binary and power on your device.
 
