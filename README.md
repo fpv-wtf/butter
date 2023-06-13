@@ -26,7 +26,7 @@ Follow the included README.txt
 - **Goggles V2**
   - [01.07.0000](https://bin.fpv.tools/butter/packages/gl170_01.07.0000_recovery.zip)
   - [01.00.0606](https://bin.fpv.tools/butter/packages/gp150_01.00.0606_recovery.zip)
-- Air Unit Lite (**Caddx Vista / Runcam Wasp**) for using with with FPV Goggles V1/V2
+- Air Unit Lite (**Caddx Vista / Runcam Wasp**) for using with FPV Goggles V1/V2
   - [01.00.0608](https://bin.fpv.tools/butter/packages/lt150_01.00.0608_recovery.zip)
 - Air Unit Lite (**Caddx Vista**) for using with with FPV Goggles V1/V2
   - [01.00.0606](https://bin.fpv.tools/butter/packages/lt150_01.00.0606_recovery.zip)
