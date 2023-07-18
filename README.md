@@ -17,6 +17,8 @@ Sorry OS X users, you will need to find a friend with a supported PC. If someone
 This will downgrade your goggles to a rootable version, root them using margerine and finally upgrade them to the latest included firmware version for compatability with the DJI FPV, Avata and O3 Air Unit. 
 If you only fly Air Units or Vistas and don't care about latest compatability you may also use the V01.00.0606 package below to downgrade and then continue rooting and installing wtfos at https://fpv.wtf/.
 
+`Note for existing WTFOS users: There is no harm in using this to overwrite WTFOS with new firmware.`
+
 Follow the included README.txt
 
 **For all other purposes**, please find the appropriate package below and follow the included README.txt:
