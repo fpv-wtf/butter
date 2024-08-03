@@ -12,18 +12,11 @@ Sorry OS X users, you will need to find a friend with a supported PC. If someone
 
 ## Usage
 **First time V2 Goggles** users should:
-- Use the [01.00.0606](https://bin.fpv.tools/butter/packages/gp150_01.00.0606_recovery.zip) package to downgrade
+- Use the [01.00.0606](https://bin.fpv.tools/butter/packages/gp150_01.00.0606_recovery.zip) package and follow the included README.txt to downgrade
 - Go to [https://fpv.wtf/root](https://fpv.wtf/root) and root their device - DO NOT install wtfos yet
 - Switch the Goggles to DJI FPV mode from the device menus
 - Use [DJI Assistant (DJI FPV series)](https://www.dji.com/ee/downloads/softwares/dji-assistant-2-dji-fpv-series) to upgrade to the latest firmware
 - Go to [https://fpv.wtf/wtfos](https://fpv.wtf/root) to install wtfos
-
-This will downgrade your goggles to a rootable version, root them using margerine and finally upgrade them to the latest included firmware version for compatability with the DJI FPV, Avata and O3 Air Unit. 
-If you only fly Air Units or Vistas and don't care about latest compatability you may also use the V01.00.0606 package below to downgrade and then continue rooting and installing wtfos at https://fpv.wtf/.
-
-`Note for existing WTFOS users: There is no harm in using this to overwrite WTFOS with new firmware.`
-
-Follow the included README.txt
 
 **For all other purposes**, please find the appropriate package below and follow the included README.txt:
 - **Goggles V1**
