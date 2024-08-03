@@ -11,8 +11,12 @@ This program will enable fastboot on DJI Air Unit (Lite), DJI FPV Goggles V1 and
 Sorry OS X users, you will need to find a friend with a supported PC. If someone has any ideas on how to make the recovery USB device that shows up for 5 seconds during DJI device power up successfully enumerate on OS X in libusb (or at all) we're all ears.
 
 ## Usage
-**For first time V2 Goggles** users on Windows it's reccomended to use the following superpack:
-- [01.07.0000 superpack](https://bin.fpv.tools/butter/packages/gl170_01.07.0000_superpack.zip)
+**First time V2 Goggles** users should:
+- Use the [01.00.0606](https://bin.fpv.tools/butter/packages/gp150_01.00.0606_recovery.zip) package to downgrade
+- Go to [https://fpv.wtf/root](https://fpv.wtf/root) and root their device - DO NOT install wtfos yet
+- Switch the Goggles to DJI FPV mode from the device menus
+- Use [DJI Assistant (DJI FPV series)](https://www.dji.com/ee/downloads/softwares/dji-assistant-2-dji-fpv-series) to upgrade to the latest firmware
+- Go to [https://fpv.wtf/wtfos](https://fpv.wtf/root) to install wtfos
 
 This will downgrade your goggles to a rootable version, root them using margerine and finally upgrade them to the latest included firmware version for compatability with the DJI FPV, Avata and O3 Air Unit. 
 If you only fly Air Units or Vistas and don't care about latest compatability you may also use the V01.00.0606 package below to downgrade and then continue rooting and installing wtfos at https://fpv.wtf/.
