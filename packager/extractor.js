@@ -39,9 +39,9 @@ if(!match) {
 var device = match[0]
 console.log(device)
 
-const exec = (command) => {
-    console.log(command)
-    return execSync(command)
+const exec = (command, args) => {
+    console.log(command, args)
+    return execSync(command, args)
 }
 
 var sigfiles = []
@@ -50,7 +50,7 @@ if(infile.endsWith(".bin")) {
     if(!fs.existsSync(package)) {
         fs.mkdirSync(package)
     }
-    exec(`tar -xvf ${infile} -C ${package}`);
+    exec('tar', ['-xvf', infile, '-C', package]);
     sigfiles.push(...fs.readdirSync(package).filter((file) => { console.log(file); return new RegExp("(.*)_(0801|2801|2805)_(.*).pro.fw.sig").test(file)}).map((file) => {
         return package+"/"+file;
      }))
@@ -83,16 +83,16 @@ const versions = sigfiles.map((file) => {
 })
 
 //lazy because only one sig file at a time in this version
-const dir = process.argv[3]+"/"+device+"_"+versions[0]+"_recovery";
+const dir = path.join(process.argv[3], device+"_"+versions[0]+"_recovery");
 if(!fs.existsSync(dir))
     fs.mkdirSync(dir)
-const deleteme = cwd()+"/"+package;
+const deleteme = path.join(cwd(), package);
 process.chdir(dir)
 
 const decryptSigFile = (sigfile, key) => {
     console.log("decrypting .sig file: "+sigfile)
     console.log("cwd is "+cwd())
-    const stdout = exec("python "+toolsdir+"dji-firmware-tools/dji_imah_fwsig.py -vv "+(keys[device].verify ? "-k "+keys[device].verify : "-f")+ " -k "+key+" -u -i "+sigfile);
+    const stdout = exec('python', [path.join(toolsdir, 'dji-firmware-tools/dji_imah_fwsig.py'), '-vv', (keys[device].verify ? '-k '+keys[device].verify : '-f'), '-k', key, '-u', '-i', sigfile]);
     if(!/Decrypted chunks checksum (.*) matches./.test(stdout.toString())) {
         console.error("Decrypted file checksum mismatch for: "+sigfile)
     }
@@ -104,7 +104,7 @@ const decryptSigFile = (sigfile, key) => {
 var binfiles = []
 sigfiles.forEach(sigfile => {
     //umm, ugh, don't look here. yes, this is kinda wrong.
-    decryptSigFile("../../tmp/"+sigfile, keys[device].decrypt)
+    decryptSigFile(path.join('../../tmp', sigfile), keys[device].decrypt)
     binfiles.push(...fs.readdirSync(process.cwd()).filter((file) => { return new RegExp(path.basename(sigfile).slice(0, -4)+"_(.*).bin").test(file)}))
 })
 
@@ -114,22 +114,24 @@ const clean = (file) => {
     }
 }
 const zipfiles = binfiles.filter(file => isFileHead(file, "PK"))
-zipfiles.forEach(file => execSync("unzip -o "+file))
+zipfiles.forEach(file => execSync('unzip', ['-o', file]))
 
 const brfiles = fs.readdirSync(process.cwd()).filter(file => file.endsWith(".br"))
-brfiles.forEach(file => execSync("brotli -f -d "+file))
+brfiles.forEach(file => execSync('brotli', ['-f', '-d', file]))
 
 const tlfiles = fs.readdirSync(process.cwd()).filter(file => file.endsWith(".transfer.list"))
 tlfiles.forEach(file => {
     const part = file.slice(0, -(".transfer.list".length))
-    exec(`set -e
+    exec('bash', ['-c', `
+    set -e
     python ${toolsdir}sdat2img/sdat2img.py ${part}.transfer.list  ${part}.new.dat  ${part}.img.raw
     img2simg ${part}.img.raw ${part}.img
-    rm ${part}.img.raw`)
+    rm ${part}.img.raw`])
 })
 
 if(device == "gp150" || device == "gl170") {
-    exec(`set -e
+    exec('bash', ['-c', `
+    set -e
     sudo rm -rf mount
     mkdir -p mount
     rm -rf upgrade_raw.img
@@ -145,7 +147,7 @@ if(device == "gp150" || device == "gl170") {
     tune2fs -c0 -i0 -O ^metadata_csum upgrade_raw.img
     #cp upgrade_raw.img upgrade.img
     img2simg upgrade_raw.img upgrade.img
-    rm upgrade_raw.img`)
+    rm upgrade_raw.img`])
 }
 
 /*

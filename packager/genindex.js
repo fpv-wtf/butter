@@ -1,18 +1,27 @@
 const fs = require("fs")
 const { execSync } = require('child_process')
 const { log } = require("console")
+const crypto = require('crypto');
 
 const exec = (command) => {
     //console.log(command)
     return execSync(command).toString()
 }
+
+const computeSha1 = (filePath) => {
+    const fileBuffer = fs.readFileSync(filePath);
+    const hashSum = crypto.createHash('sha1');
+    hashSum.update(fileBuffer);
+    return hashSum.digest('hex');
+}
+
 const htdocs = __dirname+"/htdocs/packages/"
 var packages = fs.readdirSync(htdocs)
     .filter(file => file.endsWith(".zip"))
     .map(file => {
         var [device, version, type] = file.split('.').slice(0, -1).join('.').split("_")
         if(device == "gp150") device = "gl170"
-        const sha1sum = exec("sha1sum "+htdocs+file).split(" ")[0]
+        const sha1sum = computeSha1(htdocs+file);
         const url = "https://bin.fpv.tools/butter/packages/"+file
         return {device, version, type, sha1sum, url}
     })
